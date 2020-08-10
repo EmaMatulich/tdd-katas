@@ -41,6 +41,12 @@ public class BowlingGameSpec {
             game.roll(pines);
         }
     }
+    private void rollSpare(){
+        rollMany(2, 5);
+    }
+    private void rollStrike(){
+        game.roll(10);
+    }
 
     @Test
     public void WhenRoll0PinsInEachRollThenScoreIsZero(){
@@ -56,15 +62,26 @@ public class BowlingGameSpec {
 
     @Test
     public void WhenRollOneSpareThenSpareBonusReceived(){
-        rollMany(2, 5);
+        rollSpare();
         rollMany(1, 3);
         rollMany(17, 0);
         assertEquals(16, game.score());
     }
 
-    //tengo un spare en cualquier posición menos la ultima
+    @Test
+    public void WhenRollOneStrikeThenStrikeBonusReceived(){
+        rollStrike();
+        game.roll(3);
+        game.roll(4);
+        rollMany(16, 0);
+        assertEquals(24, game.score());
+    }
 
-    //tengo un strike en cualquier posición menos la ultima
+    @Test
+    public void WhenRollPerfectGameThenScoreIs300(){
+        rollMany(12, 10);
+        assertEquals(300, game.score());
+    }
 
     //tengo un strike o spare en la ultima posicion
 
