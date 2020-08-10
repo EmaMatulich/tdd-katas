@@ -1,14 +1,18 @@
 package bowlinggame;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 
 /**
  * The game consists of 10 frames. In each frame the player has two rolls to knock down 10 pins.
  * The score for the frame is the total number of pins knocked down, plus bonuses for strikes and spares.
  *
- * A spare is when the player knocks down all 10 pins in two rolls. The bonus for that frame is the number of pins knocked down by the next roll.
+ * A spare is when the player knocks down all 10 pins in two rolls.
+ * The bonus for that frame is the number of pins knocked down by the next roll.
  *
  * A strike is when the player knocks down all 10 pins on his first roll.
  * The frame is then completed with a single roll. The bonus for that frame is the value of the next two rolls.
@@ -18,19 +22,51 @@ import org.junit.Test;
  */
 
 /**
- * Requirements
- * Write a class Game that has two methods
- *
- * void roll(int) is called each time the player rolls a ball. The argument is the number of pins knocked down.
- * int score() returns the total score for that game.
+ Write a class named “Game” that has two methods
+ roll(pins : int) is called each time the player rolls a ball.  The argument is the number of pins knocked down.
+ score() : int is called only at the very end of the game.  It returns the total score for that game.
  */
 
 public class BowlingGameSpec {
 
-    @Test
-    public void WhenBowlingGameInstantiatedThenScoreIsZero(){
-        BowlingGame game = new BowlingGame();
-        Assert.assertEquals(0, game.score());
+    private BowlingGame game;
+
+    @Before
+    public void setup(){
+        game = new BowlingGame();
     }
+
+    private void rollMany(int rolls, int pines){
+        for (int i = 0; i< rolls; i++){
+            game.roll(pines);
+        }
+    }
+
+    @Test
+    public void WhenRoll0PinsInEachRollThenScoreIsZero(){
+        rollMany(20, 0);
+        assertEquals(0, game.score());
+    }
+
+    @Test
+    public void WhenRoll1PinsInEachRollThenScoreIs20(){
+        rollMany(20, 1);
+        assertEquals(20, game.score());
+    }
+
+    @Test
+    public void WhenRollOneSpareThenSpareBonusReceived(){
+        rollMany(2, 5);
+        rollMany(1, 3);
+        rollMany(17, 0);
+        assertEquals(16, game.score());
+    }
+
+    //tengo un spare en cualquier posición menos la ultima
+
+    //tengo un strike en cualquier posición menos la ultima
+
+    //tengo un strike o spare en la ultima posicion
+
 
 }
