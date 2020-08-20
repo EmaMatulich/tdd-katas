@@ -8,10 +8,10 @@ public class Instruction {
 
 
     private InstructionCommand command;
-    private int startingPointRow;
-    private int startingPointColumn;
-    private int endingPointRow;
-    private int endingPointColumn;
+    private int startingRow;
+    private int startingColumn;
+    private int endingRow;
+    private int endingColumn;
 
     public Instruction(String instruction) throws RuntimeException{
         String[] instructionArguments = instruction.split(" ");
@@ -40,6 +40,7 @@ public class Instruction {
         if (!InstructionCommand.isValidInstructionCommand(command)){
             throw new RuntimeException("Invalid instruction: " + command);
         }
+        this.command = InstructionCommand.getInstructionCommandFromCommand(command);
     }
 
     private void validateInstructionContainsThrough(String[] instructionArguments){
@@ -63,8 +64,8 @@ public class Instruction {
             int row = new Integer(points[0]);
             int column = new Integer(points[1]);
             if (row >= 0 && column >= 0){
-                this.startingPointRow = row;
-                this.startingPointColumn = column;
+                this.startingRow = row;
+                this.startingColumn = column;
                 return;
             }
         }catch (NumberFormatException e){}
@@ -77,8 +78,8 @@ public class Instruction {
             int row = new Integer(points[0]);
             int column = new Integer(points[1]);
             if (row >= 0 && column >= 0){
-                this.endingPointRow = row;
-                this.endingPointColumn = column;
+                this.endingRow = row;
+                this.endingColumn = column;
                 return;
             }
         }catch (NumberFormatException e){}
@@ -90,19 +91,19 @@ public class Instruction {
         return command;
     }
 
-    public int getStartingPointRow() {
-        return startingPointRow;
+    public int getStartingRow() {
+        return startingRow;
     }
 
-    public int getStartingPointColumn() {
-        return startingPointColumn;
+    public int getStartingColumn() {
+        return startingColumn;
     }
 
-    public int getEndingPointRow() {
-        return endingPointRow;
+    public int getEndingRow() {
+        return endingRow;
     }
 
-    public int getEndingPointColumn() {
-        return endingPointColumn;
+    public int getEndingColumn() {
+        return endingColumn;
     }
 }
