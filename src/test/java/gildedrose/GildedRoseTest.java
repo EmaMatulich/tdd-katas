@@ -114,6 +114,42 @@ public class GildedRoseTest {
         assertEquals(-1, backstageitem.sellIn);
     }
 
+    @Test
+    public void GivenConjuredItemWithQualityZeroWhenUpdateQualityThenQualityIsZero(){
+        Item conjuredItem =  new Item("Conjured peelio", 3, 0);
+        GildedRose app = new GildedRose(new Item[] { conjuredItem });
+        app.updateQuality();
+        assertEquals(0, conjuredItem.quality);
+        assertEquals(2, conjuredItem.sellIn);
+    }
+
+    @Test
+    public void GivenConjuredItemWithQualityAndSellInZeroWhenUpdateQualityThenQualityIsZeroAndSellInNegative(){
+        Item conjuredItem =  new Item("Conjured peelio", 0, 0);
+        GildedRose app = new GildedRose(new Item[] { conjuredItem });
+        app.updateQuality();
+        assertEquals(0, conjuredItem.quality);
+        assertEquals(conjuredItem.sellIn , -1);
+    }
+
+    @Test
+    public void GivenConjuredItemWithQualityAndSellpositiveWhenUpdateQualityThenQualityDecrementedBy2(){
+        Item conjuredItem =  new Item("Conjured foo", 3, 3);
+        GildedRose app = new GildedRose(new Item[] { conjuredItem });
+        app.updateQuality();
+        assertEquals(1, conjuredItem.quality);
+        assertEquals(2, conjuredItem.sellIn);
+    }
+
+    @Test
+    public void GivenConjuredItemWithSellByDateExpriedWhenUpdateQualityThenQualityReduceBy4(){
+        Item conjuredItem =  new Item("Conjured foo", 0, 5);
+        GildedRose app = new GildedRose(new Item[] { conjuredItem });
+        app.updateQuality();
+        assertEquals(1, conjuredItem.quality);
+        assertEquals(-1, conjuredItem.sellIn);
+    }
+
 
 
 }
